@@ -5,7 +5,7 @@ character_generator::character_generator(QWidget *parent)
 {
     // initialize layouts and buttons
     mainLayout = new QHBoxLayout(this);
-    //workWidget = new QStackedWidget(this);
+    workWidget = new QStackedWidget(this);
     generateButton = new QPushButton("Generator");
     showSavedButton = new QPushButton("Saved chars");
 
@@ -14,18 +14,17 @@ character_generator::character_generator(QWidget *parent)
     QVBoxLayout* menuLayout = new QVBoxLayout(menuWidget);
     menuLayout->addWidget(generateButton);
     menuLayout->addWidget(showSavedButton);
-    menuLayout->addStretch();
 
     // create scrollarea with characters
-    QScrollArea* scrollArea = new QScrollArea();
-    QWidget* characterListWidget = new QWidget();
-    QVBoxLayout* characterListLayout = new QVBoxLayout(characterListWidget);
+    // QScrollArea* scrollArea = new QScrollArea();
+    characterListLayout = new QVBoxLayout(this);
 
-    scrollArea->setWidget(characterListWidget);
+    // scrollArea->setWidget(characterListWidget);
 
     // add all layouts to main layout
     mainLayout->addWidget(menuWidget, 1);
-    mainLayout->addWidget(scrollArea, 4);
+    mainLayout->addLayout(characterListLayout,7);
+    // mainLayout->addWidget(scrollArea, 4);
 
     setLayout(mainLayout);
     resize(800,600);
@@ -39,4 +38,8 @@ character_generator::~character_generator() {}
 void character_generator::generateNewList()
 {
     qDebug() << "clicked";
+    auto ch = cg.generate();
+    auto* chw = new characterList(ch, this);
+
+    characterListLayout->addWidget(chw);
 }

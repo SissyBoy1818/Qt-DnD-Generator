@@ -1,6 +1,9 @@
 #ifndef CHARACTER_GENERATOR_H
 #define CHARACTER_GENERATOR_H
 
+#include "characterlist.h"
+#include "charactergenerator.h"
+
 #include <QWidget>
 #include <QStackedWidget>
 #include <QHBoxLayout>
@@ -18,8 +21,11 @@ public:
     ~character_generator();
 
 private:
+    characterGenerator cg;
+
     QHBoxLayout* mainLayout;
-    //QStackedWidget* workWidget;
+    QStackedWidget* workWidget;
+    QVBoxLayout* characterListLayout;
 
     QPushButton* generateButton;
     QPushButton* showSavedButton;

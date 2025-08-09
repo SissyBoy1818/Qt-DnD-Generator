@@ -12,26 +12,26 @@ const std::vector<QString> races{
 }
 
 namespace rname{
-const std::vector<QString> human_male_names{
+inline const std::vector<QString> human_male_names{
     "Joe", "Piter", "Simon"
 };
-const std::vector<QString> human_woman_names{
+inline const std::vector<QString> human_woman_names{
     "Maria", "Sara", "Gwen"
 };
-const std::vector<QString> drarwen_male_names{
+inline const std::vector<QString> drarwen_male_names{
     "Joe", "Piter", "Simon"
 };
-const std::vector<QString> dwarven_woman_names{
+inline const std::vector<QString> dwarven_woman_names{
     "Maria", "Sara", "Gwen"
 };
-const std::vector<QString> elf_male_names{
+inline const std::vector<QString> elf_male_names{
     "Joe", "Piter", "Simon"
 };
-const std::vector<QString> elf_woman_names{
+inline const std::vector<QString> elf_woman_names{
     "Maria", "Sara", "Gwen"
 };
 
-std::map<int,const std::vector<QString>*> rnames{
+inline std::map<int,const std::vector<QString>*> rnames{
     std::pair<int,const std::vector<QString>*>(0, &human_male_names),
     std::pair<int,const std::vector<QString>*>(1, &human_woman_names),
     std::pair<int,const std::vector<QString>*>(2, &drarwen_male_names),
