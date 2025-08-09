@@ -2,6 +2,7 @@
 #define CHARACTER_GENERATOR_H
 
 #include <QWidget>
+#include <QStackedWidget>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QPushButton>
@@ -18,6 +19,7 @@ public:
 
 private:
     QHBoxLayout* mainLayout;
+    //QStackedWidget* workWidget;
 
     QPushButton* generateButton;
     QPushButton* showSavedButton;

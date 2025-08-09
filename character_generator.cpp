@@ -5,8 +5,9 @@ character_generator::character_generator(QWidget *parent)
 {
     // initialize layouts and buttons
     mainLayout = new QHBoxLayout(this);
-    generateButton = new QPushButton("Generate");
-    showSavedButton = new QPushButton("Show Saved");
+    //workWidget = new QStackedWidget(this);
+    generateButton = new QPushButton("Generator");
+    showSavedButton = new QPushButton("Saved chars");
 
     // create menu and add buttons
     QWidget* menuWidget = new QWidget();
