@@ -1,9 +1,10 @@
-#ifndef CHARACTER_GENERATOR_H
-#define CHARACTER_GENERATOR_H
+#ifndef MAINGENERATORWIDGET_H
+#define MAINGENERATORWIDGET_H
 
 #include "characterlist.h"
 #include "charactergenerator.h"
 
+#include <vector>
 #include <QWidget>
 #include <QStackedWidget>
 #include <QHBoxLayout>
@@ -12,16 +13,17 @@
 #include <QColumnView>
 #include <QScrollArea>
 
-class character_generator : public QWidget
+class MainGeneratorWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    character_generator(QWidget *parent = nullptr);
-    ~character_generator();
+    MainGeneratorWidget(QWidget *parent = nullptr);
+    ~MainGeneratorWidget();
 
 private:
     characterGenerator cg;
+    std::vector<QWidget*> generatedCharacters;
 
     QHBoxLayout* mainLayout;
     QStackedWidget* workWidget;
@@ -36,4 +38,4 @@ public slots:
 signals:
 
 };
-#endif // CHARACTER_GENERATOR_H
+#endif // MAINGENERATORWIDGET_H

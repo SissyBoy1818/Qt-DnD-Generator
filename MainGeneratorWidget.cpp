@@ -1,6 +1,6 @@
-#include "character_generator.h"
+#include "MainGeneratorWidget.h"
 
-character_generator::character_generator(QWidget *parent)
+MainGeneratorWidget::MainGeneratorWidget(QWidget *parent)
     : QWidget(parent)
 {
     // initialize layouts and buttons
@@ -30,16 +30,27 @@ character_generator::character_generator(QWidget *parent)
     resize(800,600);
 
     // connect slots and signals
-    connect(generateButton, &QPushButton::clicked, this, &character_generator::generateNewList);
+    connect(generateButton, &QPushButton::clicked, this, &MainGeneratorWidget::generateNewList);
 }
 
-character_generator::~character_generator() {}
+MainGeneratorWidget::~MainGeneratorWidget() {}
 
-void character_generator::generateNewList()
+void MainGeneratorWidget::generateNewList()
 {
     qDebug() << "clicked";
-    auto ch = cg.generate();
-    auto* chw = new characterList(ch, this);
 
-    characterListLayout->addWidget(chw);
+    for (auto ch : generatedCharacters) {
+        characterListLayout->removeWidget(ch);
+        delete ch;
+    }
+    generatedCharacters.clear();
+
+    for (int i = 0; i < 5; ++i)
+    {
+        auto ch = cg.generate();
+        characterList* chw = new characterList(ch, this);
+
+        generatedCharacters.push_back(chw);
+        characterListLayout->addWidget(chw);
+    }
 }

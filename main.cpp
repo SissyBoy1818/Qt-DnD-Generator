@@ -1,11 +1,11 @@
-#include "character_generator.h"
+#include "MainGeneratorWidget.h"
 
 #include <QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    character_generator w;
+    MainGeneratorWidget w;
 
     w.show();
     return a.exec();

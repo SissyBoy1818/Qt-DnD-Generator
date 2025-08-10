@@ -11,6 +11,9 @@ public:
     characterGenerator();
 
     Character generate();
+
+private:
+    std::mt19937 randomEngine;
 };
 
 #endif // CHARACTERGENERATOR_H
