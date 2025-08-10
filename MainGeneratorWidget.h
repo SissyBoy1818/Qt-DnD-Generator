@@ -13,6 +13,7 @@
 #include <QColumnView>
 #include <QScrollArea>
 #include <QTabWidget>
+#include <QCloseEvent>
 
 class MainGeneratorWidget : public QWidget
 {
@@ -39,6 +40,9 @@ private:
     QWidget* generatedCharList;
     QScrollArea* scrollArea;
     QVBoxLayout* savedCharsLayout;
+
+protected:
+    void closeEvent(QCloseEvent *event) override;
 
 public slots:
     void showSaved();

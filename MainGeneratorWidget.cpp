@@ -78,3 +78,9 @@ void MainGeneratorWidget::saveCharacter(const CharacterSheet* character)
     savedSheets.push_back(savedChar);
     savedCharsLayout->addWidget(savedChar);
 }
+
+void MainGeneratorWidget::closeEvent(QCloseEvent *event)
+{
+    qDebug() << "CLOSED";
+    event->accept();
+}

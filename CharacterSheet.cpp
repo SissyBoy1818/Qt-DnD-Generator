@@ -38,6 +38,15 @@ CharacterSheet::CharacterSheet(const Character& character, QWidget *parent)
     mainLayout->addWidget(saveButton, 1);
     charInfoLayout->addLayout(mainInfoLayout, 3);
     charInfoLayout->addLayout(additionalInfoLayout, 1);
+
+    setAttribute(Qt::WA_StyledBackground, true);
+    setObjectName("characterSheet");
+    setStyleSheet(
+        "#characterSheet {"
+        "   border: 3px solid black;"
+        "   border-radius: 15px;"
+        "}"
+        );
 }
 
 CharacterSheet::CharacterSheet(const CharacterSheet &other, QWidget *parent)
@@ -76,6 +85,15 @@ CharacterSheet::CharacterSheet(const CharacterSheet &other, QWidget *parent)
     mainLayout->addWidget(saveButton, 1);
     charInfoLayout->addLayout(mainInfoLayout, 3);
     charInfoLayout->addLayout(additionalInfoLayout, 1);
+
+    setAttribute(Qt::WA_StyledBackground, true);
+    setObjectName("characterSheet");
+    setStyleSheet(
+        "#characterSheet {"
+        "   border: 3px solid black;"
+        "   border-radius: 15px;"
+        "}"
+        );
 }
 
 const QCheckBox *CharacterSheet::getSaveButton() const
