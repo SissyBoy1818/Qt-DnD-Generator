@@ -42,7 +42,7 @@ inline std::map<int,const std::vector<QString>*> names{
 }
 
 namespace occupation{
-const std::vector<QString> village_occupation{
+inline const std::vector<QString> village_occupation{
     "trader", "fisher", "woodcutter"
 };
 }

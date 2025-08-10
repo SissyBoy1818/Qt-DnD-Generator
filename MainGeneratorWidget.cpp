@@ -8,6 +8,8 @@ MainGeneratorWidget::MainGeneratorWidget(QWidget *parent)
     workWidget = new QStackedWidget(this);
     generateButton = new QPushButton("Generator");
     showSavedButton = new QPushButton("Saved chars");
+    generatedCharList = new QWidget(workWidget);
+    characterListLayout = new QVBoxLayout(generatedCharList);
 
     // create menu and add buttons
     QWidget* menuWidget = new QWidget();
@@ -16,28 +18,41 @@ MainGeneratorWidget::MainGeneratorWidget(QWidget *parent)
     menuLayout->addWidget(showSavedButton);
 
     // create scrollarea with characters
-    // QScrollArea* scrollArea = new QScrollArea();
-    characterListLayout = new QVBoxLayout(this);
-
-    // scrollArea->setWidget(characterListWidget);
+    scrollArea = new QScrollArea(workWidget);
+    QWidget* scrollContent = new QWidget(scrollArea);
+    savedCharsLayout = new QVBoxLayout(scrollContent);
+    scrollArea->setWidget(scrollContent);
+    scrollContent->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::MinimumExpanding);
+    savedCharsLayout->addStretch();
+    scrollArea->setWidgetResizable(true);
 
     // add all layouts to main layout
     mainLayout->addWidget(menuWidget, 1);
-    mainLayout->addLayout(characterListLayout,7);
-    // mainLayout->addWidget(scrollArea, 4);
+    mainLayout->addWidget(workWidget,7);
+    workWidget->addWidget(generatedCharList);
+    workWidget->addWidget(scrollArea);
 
+    workWidget->setCurrentWidget(generatedCharList);
     setLayout(mainLayout);
     resize(800,600);
 
     // connect slots and signals
     connect(generateButton, &QPushButton::clicked, this, &MainGeneratorWidget::generateNewList);
+    connect(showSavedButton, &QPushButton::clicked, this, &MainGeneratorWidget::showSaved);
 }
 
 MainGeneratorWidget::~MainGeneratorWidget() {}
 
+void MainGeneratorWidget::showSaved()
+{
+    workWidget->setCurrentWidget(scrollArea);
+}
+
 void MainGeneratorWidget::generateNewList()
 {
-    qDebug() << "clicked";
+    qDebug() << "generate";
+
+    workWidget->setCurrentWidget(generatedCharList);
 
     for (auto ch : generatedCharacters) {
         characterListLayout->removeWidget(ch);
@@ -48,9 +63,18 @@ void MainGeneratorWidget::generateNewList()
     for (int i = 0; i < 5; ++i)
     {
         auto ch = cg.generate();
-        characterList* chw = new characterList(ch, this);
+        CharacterSheet* chw = new CharacterSheet(ch, this);
 
         generatedCharacters.push_back(chw);
         characterListLayout->addWidget(chw);
+
+        connect(chw->getSaveButton(), &QCheckBox::checkStateChanged, this, [=](){ this->saveCharacter(chw); });
     }
+}
+
+void MainGeneratorWidget::saveCharacter(const CharacterSheet* character)
+{
+    CharacterSheet* savedChar = new CharacterSheet(*character);
+    savedSheets.push_back(savedChar);
+    savedCharsLayout->addWidget(savedChar);
 }
