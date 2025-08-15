@@ -1,8 +1,8 @@
 #ifndef MAINGENERATORWIDGET_H
 #define MAINGENERATORWIDGET_H
 
-#include "CharacterSheet.h"
-#include "charactergenerator.h"
+#include "generatorwidget.h"
+#include "menuwidget.h"
 
 #include <vector>
 #include <QWidget>
@@ -14,6 +14,7 @@
 #include <QScrollArea>
 #include <QTabWidget>
 #include <QCloseEvent>
+#include <QSpacerItem>
 
 class MainGeneratorWidget : public QWidget
 {
@@ -24,18 +25,12 @@ public:
     ~MainGeneratorWidget();
 
 private:
-    void saveCharacter(const CharacterSheet* character);
-
-    characterGenerator cg;
     std::vector<CharacterSheet*> savedSheets;
-    std::vector<CharacterSheet*> generatedCharacters;
+    GeneratorWidget* generator;
 
     QHBoxLayout* mainLayout;
     QStackedWidget* workWidget;
     QVBoxLayout* characterListLayout;
-
-    QPushButton* generateButton;
-    QPushButton* showSavedButton;
 
     QWidget* generatedCharList;
     QScrollArea* scrollArea;
@@ -46,7 +41,8 @@ protected:
 
 public slots:
     void showSaved();
-    void generateNewList();
+    void showGenerator();
+    void saveCharacter(const CharacterSheet* character);
 
 signals:
 

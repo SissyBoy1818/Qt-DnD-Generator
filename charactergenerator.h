@@ -10,7 +10,7 @@ class characterGenerator
 public:
     characterGenerator();
 
-    Character generate();
+    Character generate(int8_t race = -1, int8_t name = -1, int8_t occ = -1);
 
 private:
     std::mt19937 randomEngine;

@@ -2,12 +2,13 @@
 #define CHARACTERSHEET_H
 
 #include "character.h"
+#include "characters_info.h"
 
 #include <QWidget>
 #include <QStackedWidget>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <QCheckBox>
+#include <QPushButton>
 #include <QLabel>
 #include <QPixmap>
 
@@ -18,15 +19,22 @@ public:
     explicit CharacterSheet(const Character& character, QWidget *parent = nullptr);
     CharacterSheet(const CharacterSheet& other, QWidget *parent = nullptr);
 
-    const QCheckBox *getSaveButton() const;
+    const QPushButton *getSaveButton() const;
 
 private:
-    QCheckBox* saveButton;
+    void setUI();
+
+    QLabel* imageLabel;
+    QPushButton* saveButton;
+    QPixmap* icon;
 
     QLabel* name;
     QLabel* occ;
     QLabel* race;
     QLabel* age;
+
+private slots:
+    void hideSaveButton();
 };
 
 #endif // CHARACTERSHEET_H

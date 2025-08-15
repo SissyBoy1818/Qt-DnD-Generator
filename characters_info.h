@@ -2,8 +2,10 @@
 #define CHARACTERS_INFO_H
 
 #include <QString>
+#include <QPixmap>
 #include <vector>
 #include <map>
+#include <random>
 
 namespace race{
 const std::vector<QString> races{
@@ -48,12 +50,20 @@ inline const std::vector<QString> village_occupation{
 }
 
 namespace age{
-inline std::uniform_int_distribution<> human_age(7,80);
-inline std::uniform_int_distribution<> dwarf_age(25, 450);
-inline std::uniform_int_distribution<> elf_age(65,750);
+inline std::normal_distribution<> human_age(35.0,10.0);
+inline std::normal_distribution<> dwarf_age(200.0,50.0);
+inline std::normal_distribution<> elf_age(425.0,110.0);
 
-inline std::map<int, std::uniform_int_distribution<>> ages{
+inline std::map<int, std::normal_distribution<>> ages{
     {0, human_age}, {1, dwarf_age}, {2, elf_age}
+};
+}
+
+namespace pic{
+inline std::map<QString, QString> pics{
+    {"human", "D:\\Programming\\dnd-generator\\human.png"},
+    {"dwarf", "D:\\Programming\\dnd-generator\\dwarf.png"},
+    {"elf", "D:\\Programming\\dnd-generator\\elf.png"}
 };
 }
 

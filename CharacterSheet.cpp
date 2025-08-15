@@ -3,27 +3,56 @@
 CharacterSheet::CharacterSheet(const Character& character, QWidget *parent)
     : QWidget{parent}
 {
+    setUI();
+    // create text labels
+    name->setText(character.name());
+    occ->setText(character.occupation());
+    race->setText(character.race());
+    age->setText(QString::number(character.age()));
+
+    icon->load(pic::pics[character.race()]);
+    imageLabel->setPixmap(icon->scaled(75, 75, Qt::KeepAspectRatio));
+}
+
+CharacterSheet::CharacterSheet(const CharacterSheet &other, QWidget *parent)
+    : QWidget{parent}
+{
+    setUI();
+    // create text labels
+    name->setText(other.name->text());
+    occ->setText(other.occ->text());
+    race->setText(other.race->text());
+    age->setText(other.age->text());
+
+    *icon = *(other.icon);
+    imageLabel->setPixmap(icon->scaled(75, 75, Qt::KeepAspectRatio));
+}
+
+const QPushButton *CharacterSheet::getSaveButton() const
+{
+    return saveButton;
+}
+
+void CharacterSheet::setUI()
+{
     // initialize layouts and buttons
     QHBoxLayout* mainLayout = new QHBoxLayout(this);
-    QLabel* imageLabel = new QLabel();
-    QPixmap icon("D:\\Programming\\dnd-generator\\pic.png");
+    imageLabel = new QLabel();
+    icon = new QPixmap;
     QVBoxLayout* charInfoLayout = new QVBoxLayout();
     QHBoxLayout* mainInfoLayout = new QHBoxLayout();
     QHBoxLayout* additionalInfoLayout = new QHBoxLayout();
-    saveButton = new QCheckBox(this);
-
-    // create text labels
-    name = new QLabel(character.name(), this);
-    occ = new QLabel(character.occupation(), this);
-    race = new QLabel(character.race(), this);
-    age = new QLabel(QString::number(character.age()), this);
+    saveButton = new QPushButton("save", this);
+    name = new QLabel(this);
+    occ = new QLabel(this);
+    race = new QLabel(this);
+    age = new QLabel(this);
 
     // add character info to layouts
     mainInfoLayout->addWidget(name);
     mainInfoLayout->addWidget(occ);
     additionalInfoLayout->addWidget(race);
     additionalInfoLayout->addWidget(age);
-
 
     // set size of wigets
     setMinimumHeight(100);
@@ -32,7 +61,6 @@ CharacterSheet::CharacterSheet(const Character& character, QWidget *parent)
     resize(400, 100);
 
     // add widgets to layouts
-    imageLabel->setPixmap(icon.scaled(75, 75, Qt::KeepAspectRatio));
     mainLayout->addWidget(imageLabel, 2);
     mainLayout->addLayout(charInfoLayout, 18);
     mainLayout->addWidget(saveButton, 1);
@@ -45,58 +73,14 @@ CharacterSheet::CharacterSheet(const Character& character, QWidget *parent)
         "#characterSheet {"
         "   border: 3px solid black;"
         "   border-radius: 15px;"
+        "   background-color: #3d5375;"
         "}"
         );
+
+    connect(saveButton, &QPushButton::clicked, this, &CharacterSheet::hideSaveButton);
 }
 
-CharacterSheet::CharacterSheet(const CharacterSheet &other, QWidget *parent)
-    : QWidget{parent}
+void CharacterSheet::hideSaveButton()
 {
-    // initialize layouts and buttons
-    QHBoxLayout* mainLayout = new QHBoxLayout(this);
-    QLabel* imageLabel = new QLabel();
-    QPixmap icon("D:\\Programming\\dnd-generator\\pic.png");
-    QVBoxLayout* charInfoLayout = new QVBoxLayout();
-    QHBoxLayout* mainInfoLayout = new QHBoxLayout();
-    QHBoxLayout* additionalInfoLayout = new QHBoxLayout();
-    saveButton = new QCheckBox(this);
-
-    // create text labels
-    QLabel* name = new QLabel(other.name->text(), this);
-    QLabel* occ = new QLabel(other.occ->text(), this);
-    QLabel* race = new QLabel(other.race->text(), this);
-    QLabel* age = new QLabel(other.age->text(), this);
-
-    // add character info to layouts
-    mainInfoLayout->addWidget(name);
-    mainInfoLayout->addWidget(occ);
-    additionalInfoLayout->addWidget(race);
-    additionalInfoLayout->addWidget(age);
-
-    // set size of wigets
-    setMaximumHeight(100);
-    saveButton->setMinimumWidth(50);
-    resize(400, 100);
-
-    // add widgets to layouts
-    imageLabel->setPixmap(icon.scaled(75, 75, Qt::KeepAspectRatio));
-    mainLayout->addWidget(imageLabel, 2);
-    mainLayout->addLayout(charInfoLayout, 18);
-    mainLayout->addWidget(saveButton, 1);
-    charInfoLayout->addLayout(mainInfoLayout, 3);
-    charInfoLayout->addLayout(additionalInfoLayout, 1);
-
-    setAttribute(Qt::WA_StyledBackground, true);
-    setObjectName("characterSheet");
-    setStyleSheet(
-        "#characterSheet {"
-        "   border: 3px solid black;"
-        "   border-radius: 15px;"
-        "}"
-        );
-}
-
-const QCheckBox *CharacterSheet::getSaveButton() const
-{
-    return saveButton;
+    saveButton->hide();
 }
