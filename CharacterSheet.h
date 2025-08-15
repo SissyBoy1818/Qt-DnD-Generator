@@ -2,7 +2,7 @@
 #define CHARACTERSHEET_H
 
 #include "character.h"
-#include "characters_info.h"
+//#include "characters_info.h"
 
 #include <QWidget>
 #include <QStackedWidget>

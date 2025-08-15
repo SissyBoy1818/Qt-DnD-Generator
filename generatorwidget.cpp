@@ -4,11 +4,13 @@ GeneratorWidget::GeneratorWidget(QWidget *parent)
     : QWidget{parent}
 {
     QVBoxLayout* mainLayout = new QVBoxLayout(this);
-    QPushButton* generateButton = new QPushButton();
+    QPushButton* generateButton = new QPushButton("Generate new chars");
     characterListLayout = new QVBoxLayout();
 
     mainLayout->addWidget(generateButton);
     mainLayout->addLayout(characterListLayout);
+
+    generateNewList();
 
     connect(generateButton, &QPushButton::clicked, this, &GeneratorWidget::generateNewList);
 }

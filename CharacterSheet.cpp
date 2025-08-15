@@ -8,9 +8,9 @@ CharacterSheet::CharacterSheet(const Character& character, QWidget *parent)
     name->setText(character.name());
     occ->setText(character.occupation());
     race->setText(character.race());
-    age->setText(QString::number(character.age()));
+    age->setText(QString::number(character.age()) + " лет");
 
-    icon->load(pic::pics[character.race()]);
+    icon->load("D:\\Programming\\dnd-generator\\generator_resources\\" + character.race() + "\\" + character.race() +  "_f.png");
     imageLabel->setPixmap(icon->scaled(75, 75, Qt::KeepAspectRatio));
 }
 
@@ -47,12 +47,19 @@ void CharacterSheet::setUI()
     occ = new QLabel(this);
     race = new QLabel(this);
     age = new QLabel(this);
+    QSpacerItem* spacer = new QSpacerItem(10,10);
+
+    QFont nameFont{"Arial", 16, QFont::Bold, true};
+    name->setFont(nameFont);
+    QFont ageFont{"Arial", 16, -1, true};
+    age->setFont(ageFont);
 
     // add character info to layouts
     mainInfoLayout->addWidget(name);
-    mainInfoLayout->addWidget(occ);
+    mainInfoLayout->addWidget(age);
     additionalInfoLayout->addWidget(race);
-    additionalInfoLayout->addWidget(age);
+    additionalInfoLayout->addWidget(occ);
+    additionalInfoLayout->addSpacerItem(spacer);
 
     // set size of wigets
     setMinimumHeight(100);

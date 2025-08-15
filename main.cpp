@@ -1,4 +1,5 @@
 #include "MainGeneratorWidget.h"
+#include "CharacterInfo.h"
 
 #include <QApplication>
 

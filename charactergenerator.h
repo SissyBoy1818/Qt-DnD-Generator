@@ -2,7 +2,11 @@
 #define CHARACTERGENERATOR_H
 
 #include "character.h"
-#include "characters_info.h"
+#include "CharacterInfo.h"
+
+#include <QStringList>
+#include <QRandomGenerator>
+
 #include <random>
 
 class characterGenerator
@@ -10,10 +14,13 @@ class characterGenerator
 public:
     characterGenerator();
 
-    Character generate(int8_t race = -1, int8_t name = -1, int8_t occ = -1);
+    Character generate();
 
 private:
     std::mt19937 randomEngine;
+
+    QString getRandomValue(const QJsonArray &list);
+    QString getRandomKeyFromJsonObject(const QJsonObject &object);
 };
 
 #endif // CHARACTERGENERATOR_H
