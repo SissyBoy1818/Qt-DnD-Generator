@@ -8,9 +8,41 @@
 #include <QString>
 #include <QDebug>
 
-static QJsonObject races;
+struct RaceInfo
+{
+    QList<QString> names;
+    QList<QString> surnames;
+    QList<QString> clans;
+    std::pair<int,int> lifetime;
 
-inline void df()
+    RaceInfo() {};
+
+    RaceInfo(const QJsonObject& jsonObject) {
+        for (const QJsonValue& v : jsonObject["names"].toArray()) {
+            names.append(v.toString());
+        }
+        for (const QJsonValue& v : jsonObject["surnames"].toArray()) {
+            surnames.append(v.toString());
+        }
+        for (const QJsonValue& v : jsonObject["clans"].toArray()) {
+            clans.append(v.toString());
+        }
+        lifetime.first = jsonObject["ages"].toArray()[0].toInt();
+        lifetime.second = jsonObject["ages"].toArray()[1].toInt();
+    };
+};
+
+class CharacterInfo
+{
+public:
+    CharacterInfo();
+    const QMap<QString, RaceInfo>& races() const;
+
+private:
+    QMap<QString, RaceInfo> _races;
+};
+
+inline CharacterInfo::CharacterInfo()
 {
     QFile file("D:\\Programming\\dnd-generator\\generator_resources\\races.json");
     file.open(QIODevice::ReadOnly | QIODevice::Text);
@@ -28,9 +60,14 @@ inline void df()
         nfile.close();
         QJsonDocument ndoc = QJsonDocument::fromJson(ndata.toUtf8());
         QJsonObject nroot = ndoc.object();
-        races.insert(a.toString(), nroot[a.toString()]);
+        _races[a.toString()] = RaceInfo(nroot[a.toString()].toObject());
     }
-    qDebug() << races;
+    qDebug() << _races.keys();
+}
+
+inline const QMap<QString, RaceInfo>& CharacterInfo::races() const
+{
+    return _races;
 }
 
 #endif // CHARACTERINFO_H

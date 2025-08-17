@@ -14,13 +14,15 @@ class characterGenerator
 public:
     characterGenerator();
 
-    Character generate();
+    CharacterInfo ci;
+
+    Character generate(const QString& settings);
 
 private:
     std::mt19937 randomEngine;
 
-    QString getRandomValue(const QJsonArray &list);
-    QString getRandomKeyFromJsonObject(const QJsonObject &object);
+    QString getRandomValue(const QList<QString> &list);
+    QString getRandomKeyFromJsonObject(const QMap<QString, RaceInfo> &object);
 };
 
 #endif // CHARACTERGENERATOR_H

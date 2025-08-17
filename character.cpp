@@ -1,7 +1,7 @@
 #include "character.h"
 
-Character::Character(const QString& name, const QString& race, const QString& occupation, int16_t age)
-    : _name(name), _race(race), _occupation(occupation), _age(age)
+Character::Character(const QString& name, const QString& race, const QString& occupation, int16_t age, bool sex)
+    : _name(name), _race(race), _occupation(occupation), _age(age), _sex(sex)
 {}
 
 Character::~Character()
@@ -46,4 +46,14 @@ int16_t Character::age() const
 void Character::setAge(int16_t newAge)
 {
     _age = newAge;
+}
+
+bool Character::sex() const
+{
+    return _sex;
+}
+
+void Character::setSex(bool newSex)
+{
+    _sex = newSex;
 }

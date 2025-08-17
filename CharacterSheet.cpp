@@ -10,7 +10,11 @@ CharacterSheet::CharacterSheet(const Character& character, QWidget *parent)
     race->setText(character.race());
     age->setText(QString::number(character.age()) + " лет");
 
-    icon->load("D:\\Programming\\dnd-generator\\generator_resources\\" + character.race() + "\\" + character.race() +  "_f.png");
+    if (character.sex())
+        icon->load("D:\\Programming\\dnd-generator\\generator_resources\\" + character.race() + "\\" + character.race() +  "_m.png");
+    else
+        icon->load("D:\\Programming\\dnd-generator\\generator_resources\\" + character.race() + "\\" + character.race() +  "_f.png");
+
     imageLabel->setPixmap(icon->scaled(75, 75, Qt::KeepAspectRatio));
 }
 

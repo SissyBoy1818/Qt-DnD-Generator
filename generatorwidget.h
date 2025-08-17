@@ -8,6 +8,8 @@
 #include <QVBoxLayout>
 #include <QScrollArea>
 #include <QPushButton>
+#include <QComboBox>
+#include <QSizePolicy>
 
 class GeneratorWidget : public QWidget
 {
@@ -16,6 +18,7 @@ public:
     explicit GeneratorWidget(QWidget *parent = nullptr);
 
 private:
+    QString _settings;
     characterGenerator cg;
     std::vector<CharacterSheet*> generatedCharacters;
 
@@ -29,6 +32,7 @@ private:
 
 private slots:
     void generateNewList();
+    void settingsChanged(const QString& newSettings);
 
 signals:
     void saveCharacter(CharacterSheet*);
