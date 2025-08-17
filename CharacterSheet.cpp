@@ -27,6 +27,21 @@ CharacterSheet::CharacterSheet(const CharacterSheet &other, QWidget *parent)
     occ->setText(other.occ->text());
     race->setText(other.race->text());
     age->setText(other.age->text());
+    saveButton->setText("🗑");
+    saveButton->setStyleSheet(
+        "QPushButton {"
+        "  background-color: #E57373;"
+        "  color: white;"
+        "  border-radius: 5px;"
+        "  padding: 5px 10px;"
+        "}"
+        "QPushButton:hover {"
+        "  background-color: #D32F2F;"
+        "}"
+        "QPushButton:pressed {"
+        "  background-color: #B71C1C;"
+        "}"
+        );
 
     *icon = *(other.icon);
     imageLabel->setPixmap(icon->scaled(75, 75, Qt::KeepAspectRatio));
@@ -46,7 +61,7 @@ void CharacterSheet::setUI()
     QVBoxLayout* charInfoLayout = new QVBoxLayout();
     QHBoxLayout* mainInfoLayout = new QHBoxLayout();
     QHBoxLayout* additionalInfoLayout = new QHBoxLayout();
-    saveButton = new QPushButton("save", this);
+    saveButton = new QPushButton("💾", this);
     name = new QLabel(this);
     occ = new QLabel(this);
     race = new QLabel(this);
@@ -68,7 +83,7 @@ void CharacterSheet::setUI()
     // set size of wigets
     setMinimumHeight(100);
     setMaximumHeight(100);
-    saveButton->setMinimumWidth(50);
+    saveButton->setFixedSize(30,30);
     resize(400, 100);
 
     // add widgets to layouts
@@ -82,10 +97,26 @@ void CharacterSheet::setUI()
     setObjectName("characterSheet");
     setStyleSheet(
         "#characterSheet {"
-        "   border: 3px solid black;"
+        "   border: 1px solid #1b2433;"
         "   border-radius: 15px;"
-        "   background-color: #3d5375;"
+        "   background: qlineargradient(x1:0, y1:0, x2:1, y2:0,\
+                                        stop:0 #2e3f59, stop:1 #1e2a38);"
         "}"
+        "QPushButton {\
+            background-color: #3b6ea0;\
+            color: white;\
+            border: none;\
+            border-radius: 15px;\
+            width: 30px;\
+            height: 30px;\
+            font-weight: bold;\
+        }\
+        QPushButton:hover {\
+            background-color: #325b82;\
+        }\
+        QPushButton:pressed {\
+            background-color: #264466;\
+        }"
         );
 
     connect(saveButton, &QPushButton::clicked, this, &CharacterSheet::hideSaveButton);

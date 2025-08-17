@@ -19,6 +19,7 @@ MainGeneratorWidget::MainGeneratorWidget(QWidget *parent)
     scrollContent->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::MinimumExpanding);
     savedCharsLayout->addStretch();
     scrollArea->setWidgetResizable(true);
+    savedCharsLayout->setContentsMargins(5, 20, 15, 20);
 
     // add all layouts to main layout
     mainLayout->addWidget(menu, 1);
@@ -36,12 +37,31 @@ MainGeneratorWidget::MainGeneratorWidget(QWidget *parent)
     connect(generator, &GeneratorWidget::saveCharacter, this, &MainGeneratorWidget::saveCharacter);
 
     // qss to make it look better
+    scrollContent->setObjectName("scrollContent");
+
     setObjectName("mainWidget");
     setStyleSheet(
-        "#mainWidget {"
-        "   background-color: #273345;"
-        "}"
+        "#mainWidget {\
+           background-color: #273345;\
+        }\
+        #scrollContent {\
+            background-color: #273345;\
+            border: 1px solid #1e2a38;\
+            border-radius: 8px;\
+        }\
+        #scrollContent:vertical {\
+            background-color: #273747;\
+            width: 12px;\
+            margin: 15px 0 15px 0;\
+            border-radius: 6px;\
+        }\
+        #scrollContent::handle:vertical {\
+            background-color: #3a4b6a;\
+            min-height: 20px;\
+            border-radius: 6px;\
+        }"
         );
+    scrollArea->setStyleSheet("QScrollArea {background-color: #273345; border: none;}");
 
     showGenerator();
 }

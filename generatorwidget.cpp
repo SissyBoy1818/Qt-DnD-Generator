@@ -24,6 +24,15 @@ GeneratorWidget::GeneratorWidget(QWidget *parent)
 
     connect(raceComboBox, &QComboBox::currentTextChanged, this, &GeneratorWidget::settingsChanged);
     connect(generateButton, &QPushButton::clicked, this, &GeneratorWidget::generateNewList);
+
+    generatorSettings->setObjectName("generatorSettings");
+    generatorSettings->setStyleSheet(
+        "#generatorSettings {\
+            background-color: #2e3f59;\
+            border: 1px solid #1e2a38;\
+            border-radius: 10px;\
+        }"
+        );
 }
 
 void GeneratorWidget::generateNewList()
